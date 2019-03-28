@@ -4,7 +4,7 @@
 Hey!
 
 ## Background: 
-I posted a 'tip' a while ago that takes the text from the "Back" field on your card, and when Anki shows the card, it'll go to Wikipedia and get a relevant description for you.
+I posted a 'tip' on reddit (under /u/d2dev_) a while ago that takes the text from the "Back" field on your card, and when Anki shows the card, it'll go to Wikipedia and get a relevant description for you.
 
 ## Problems:
 - Using JS meant time spent getting stuff from Wikipedia every time you opened a card
