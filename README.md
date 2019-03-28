@@ -29,7 +29,7 @@ I posted a 'tip' a while ago that takes the text from the "Back" field on your c
 ## How to Use:
 1. Make sure your card has a "Back" and a "Wiki" field.
 2. Type something into the "Back" field.
-3. The "Wiki" field will be automatically filled with information from Wikipedia!
+3. When you click outside of the "Back" field (anywhere else on the screen), the "Wiki" field will be automatically filled with information from Wikipedia!
 
 -----
 
