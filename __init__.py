@@ -72,7 +72,10 @@ def onFocusLost(flag, note, fidx):
   # if (responseType != "str"):
     # query = "Search resulted in non-string value: " + responseType
 
+  # if (isinstance(query, basestr)):
   note[dst] = query
+  # else:
+    # note[dst] = "Results not a string"
   
   # Need to return True, otherwise it doesn't work!
   return True

@@ -339,63 +339,63 @@ class WikipediaPage(object):
     pageid = list(query['pages'].keys())[0]
     page = query['pages'][pageid]
 
-    # missing is present if the page is missing
-    if 'missing' in page:
-      if hasattr(self, 'title'):
-        raise PageError(self.title)
-      else:
-        raise PageError(pageid=self.pageid)
+    # # missing is present if the page is missing
+    # if 'missing' in page:
+    #   if hasattr(self, 'title'):
+    #     raise PageError(self.title)
+    #   else:
+    #     raise PageError(pageid=self.pageid)
 
-    # same thing for redirect, except it shows up in query instead of page for
-    # whatever silly reason
-    elif 'redirects' in query:
-      if redirect:
-        redirects = query['redirects'][0]
+    # # same thing for redirect, except it shows up in query instead of page for
+    # # whatever silly reason
+    # elif 'redirects' in query:
+    #   if redirect:
+    #     redirects = query['redirects'][0]
 
-        if 'normalized' in query:
-          normalized = query['normalized'][0]
-          assert normalized['from'] == self.title, ODD_ERROR_MESSAGE
+    #     if 'normalized' in query:
+    #       normalized = query['normalized'][0]
+    #       assert normalized['from'] == self.title, ODD_ERROR_MESSAGE
 
-          from_title = normalized['to']
+    #       from_title = normalized['to']
 
-        else:
-          from_title = self.title
+    #     else:
+    #       from_title = self.title
 
-        assert redirects['from'] == from_title, ODD_ERROR_MESSAGE
+    #     assert redirects['from'] == from_title, ODD_ERROR_MESSAGE
 
-        # change the title and reload the whole object
-        self.__init__(redirects['to'], redirect=redirect, preload=preload)
+    #     # change the title and reload the whole object
+    #     self.__init__(redirects['to'], redirect=redirect, preload=preload)
 
-      else:
-        raise RedirectError(getattr(self, 'title', page['title']))
+    #   else:
+    #     raise RedirectError(getattr(self, 'title', page['title']))
 
-    # since we only asked for disambiguation in ppprop,
-    # if a pageprop is returned,
-    # then the page must be a disambiguation page
-    elif 'pageprops' in page:
-      query_params = {
-        'prop': 'revisions',
-        'rvprop': 'content',
-        'rvparse': '',
-        'rvlimit': 1
-      }
-      if hasattr(self, 'pageid'):
-        query_params['pageids'] = self.pageid
-      else:
-        query_params['titles'] = self.title
-      request = _wiki_request(query_params)
-      html = request['query']['pages'][pageid]['revisions'][0]['*']
+    # # since we only asked for disambiguation in ppprop,
+    # # if a pageprop is returned,
+    # # then the page must be a disambiguation page
+    # elif 'pageprops' in page:
+    #   query_params = {
+    #     'prop': 'revisions',
+    #     'rvprop': 'content',
+    #     'rvparse': '',
+    #     'rvlimit': 1
+    #   }
+    #   if hasattr(self, 'pageid'):
+    #     query_params['pageids'] = self.pageid
+    #   else:
+    #     query_params['titles'] = self.title
+    #   request = _wiki_request(query_params)
+    #   html = request['query']['pages'][pageid]['revisions'][0]['*']
 
-      lis = BeautifulSoup(html, "html.parser").find_all('li')
-      filtered_lis = [li for li in lis if not 'tocsection' in ''.join(li.get('class', []))]
-      may_refer_to = [li.a.get_text() for li in filtered_lis if li.a]
+    #   lis = BeautifulSoup(html, "html.parser").find_all('li')
+    #   filtered_lis = [li for li in lis if not 'tocsection' in ''.join(li.get('class', []))]
+    #   may_refer_to = [li.a.get_text() for li in filtered_lis if li.a]
 
-      raise DisambiguationError(getattr(self, 'title', page['title']), may_refer_to)
+    #   raise DisambiguationError(getattr(self, 'title', page['title']), may_refer_to)
 
-    else:
-      self.pageid = pageid
-      self.title = page['title']
-      self.url = page['fullurl']
+    # else:
+    self.pageid = pageid
+    self.title = page['title']
+    self.url = page['fullurl']
 
   def __continued_query(self, query_params):
     '''
