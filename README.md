@@ -17,6 +17,8 @@ I posted a 'tip' on reddit (under /u/d2dev_) a while ago that takes the text fro
 
 (Disclaimer: There are bugs that I'm still working out. This is more experimental than production-class code.)
 
+**Update (2019/03/31): With latest update, bug no longer crashes Anki plugins, heheh...**
+
 ----
 
 ## How to Set Up:
