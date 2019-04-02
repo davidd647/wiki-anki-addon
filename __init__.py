@@ -73,7 +73,10 @@ def onFocusLost(flag, note, fidx):
     # query = "Search resulted in non-string value: " + responseType
 
   # if (isinstance(query, basestr)):
-  note[dst] = query
+  if "may refer to" in query:
+    note[dst] = "Results exceeded definitions limit."
+  else:
+    note[dst] = query
   # else:
     # note[dst] = "Results not a string"
   
